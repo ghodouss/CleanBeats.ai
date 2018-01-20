@@ -2,6 +2,7 @@ import os
 from flask import Flask, request, redirect, url_for, flash,send_file, render_template, send_from_directory
 from werkzeug.utils import secure_filename
 from audio_cleaner import clean_audio
+import requests
 
 #UPLOAD_FOLDER is where we will store the uploaded files
 UPLOAD_FOLDER = 'explitive_files'
