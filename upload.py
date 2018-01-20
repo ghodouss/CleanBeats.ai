@@ -1,8 +1,7 @@
 import os
-from flask import Flask, request, redirect, url_for, flash,send_file
+from flask import Flask, request, redirect, url_for, flash,send_file, render_template, send_from_directory
 from werkzeug.utils import secure_filename
 from audio_cleaner import clean_audio
-import requests
 
 #UPLOAD_FOLDER is where we will store the uploaded files
 UPLOAD_FOLDER = 'explitive_files'
@@ -62,7 +61,7 @@ def uploaded_file(filename):
 @app.route('/uploads/test_download_Net/<filename>')
 def download_file(url_addr):
     url = url_addr  # user provides url in query string
-    r = requests.get(url, allow_redirects=True)
+    r = request.get(url, allow_redirects=True)
 
     # write to a file in the app's instance folder
     # come up with a better file name
