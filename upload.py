@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, redirect, url_for, flash,send_file, render_template, send_from_directory
 from werkzeug.utils import secure_filename
-from audio_cleaner import clean_audio
+#from audio_cleaner import clean_audio
 
 #UPLOAD_FOLDER is where we will store the uploaded files
 UPLOAD_FOLDER = 'explitive_files'
@@ -42,15 +42,7 @@ def upload_file():
             return redirect(url_for('uploaded_file',
                                     filename=new_audio_name))
 
-    return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload New File</h1>
-    <form method=post enctype=multipart/form-data>
-      <p><input type=file name=file>
-         <input type=submit value=Upload>
-    </form>
-    '''
+    return render_template('index.html');
 
 
 @app.route('/uploads/<filename>')
