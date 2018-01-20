@@ -51,7 +51,7 @@ def create_gan_data(file_name,snips=[{"start":20,"end":25,"word":"hello"},{"star
         clip=sound_stereo[((start+end)/2)-1500:((start+end)/2)+1500]
         clip.export("temp.mp3",format="mp3")
         clipr=sound_real[((start+end)/2)-1500:((start+end)/2)+1500]
-        clip.export("realtemp.mp3",format="mp3")
+        clipr.export("realtemp.mp3",format="mp3")
         
         ######################
         #ADD LIBROSA HERE
