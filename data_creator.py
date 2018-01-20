@@ -42,16 +42,16 @@ def create_gan_data(file_name,snips=[{"start":20,"end":25,"word":"hello"},{"star
             x=repl.frame_rate
             repl = repl._spawn(repl.raw_data, overrides={"frame_rate": int(repl.frame_rate *len(repl)/len(sound_CentersOut))})
             repl.set_frame_rate(x)
-            sound_stereo=sound_stereo.overlay(repl,gain_during_overlay=12,position=start)
 
         else:
             sil=AudioSegment.silent(duration=int((len(sound_CentersOut)-len(repl))/2))
             repl=sil+repl+sil
-            sound_stereo=sound_stereo.overlay(repl,gain_during_overlay=12,position=start)
-        clip=sound_stereo[((start+end)/2)-1500:((start+end)/2)+1500]
-        clip.export("temp.mp3",format="mp3")
-        clipr=sound_real[((start+end)/2)-1500:((start+end)/2)+1500]
-        clip.export("realtemp.mp3",format="mp3")
+        sound_stereo=sound_stereo.overlay(repl,gain_during_overlay=12,position=start)
+        if (((start+end)/2)>1500 and ((start+end)/2)<(len(sound_stereo)-1500)):
+            clip=sound_stereo[((start+end)/2)-1500:((start+end)/2)+1500]
+            clip.export("temp.mp3",format="mp3")
+            clipr=sound_real[((start+end)/2)-1500:((start+end)/2)+1500]
+            clip.export("realtemp.mp3",format="mp3")
         
         ######################
         #ADD LIBROSA HERE
