@@ -3,7 +3,16 @@ from pydub.playback import play
 import time
 
 # read in audio file and get the two mono tracks
+'''
+This function takes the file name of the song and the portions to be censored as a list and then removes the vocals from the required bits
 
+Input:
+file_name: The name of the song file
+snips: Dictionary of sections to be removed
+
+Output: censored file
+
+'''
 def censor(file_name,snips=[{"start":20,"end":25},{"start":30,"end":35}]):
 
 	name = str(time.time()) + ".mp3"
