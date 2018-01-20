@@ -5,7 +5,7 @@ from pydub.playback import play
 
 def censor(file_name,snips=[{"start":20,"end":25},{"start":30,"end":35}]):
 
-	sound_stereo = AudioSegment.from_file(filename, format="mp3")
+	sound_stereo = AudioSegment.from_file(file_name, format="mp3")
 	words=snips
 	for i in words:
 		s=i["start"]
