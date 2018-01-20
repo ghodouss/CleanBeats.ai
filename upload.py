@@ -1,5 +1,7 @@
 import os
-from flask import *
+from flask import Flask, request, redirect, url_for, flash,send_file
+from werkzeug.utils import secure_filename
+import requests
 
 #UPLOAD_FOLDER is where we will store the uploaded files
 UPLOAD_FOLDER = '/Users/yuyang/Desktop/temp'
@@ -31,8 +33,11 @@ def upload_file():
             # filename = secure_filename(file.filename)#use secure_filename function for safety
             filename=file.filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file',
-                                    filename=filename))
+
+
+            # download_file(url_for('uploaded_file',filename=filename))
+            return redirect(url_for('uploaded_file',filename=filename))
+            # return redirect(request.url)
     return '''
     <!doctype html>
     <title>Upload new File</title>
@@ -48,6 +53,34 @@ def upload_file():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
+# download from the Internet
+@app.route('/uploads/test_download_Net/<filename>')
+def download_file(url_addr):
+    url = url_addr  # user provides url in query string
+    r = requests.get(url, allow_redirects=True)
+
+    # write to a file in the app's instance folder
+    # come up with a better file name
+    with app.open_instance_resource('downloaded_file', 'wb') as f:
+        f.write(r.content)
+
+
+@app.route('/uploads/test_download_Local/<filename>')
+def file_downloads():
+    try:
+        return render_template('downloads.html')
+    except Exception as e:
+        return str(e)
+
+
+@app.route('/uploads/return-files/')#the original web use @app.route('/return-files/')
+def return_files_tut(filename,address):
+    try:
+        # example
+        # return send_file('/var/www/PythonProgramming/PythonProgramming/static/ohhey.pdf', attachment_filename='ohhey.pdf')
+        return send_file(address, attachment_filename=filename)
+    except Exception as e:
+        return str(e)
 
 
 if __name__ == "__main__":
