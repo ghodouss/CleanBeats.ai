@@ -2,7 +2,7 @@ from pydub import AudioSegment
 from pydub.playback import play
 import time
 import os
-
+from gtts import gTTS
 # read in audio file and get the two mono tracks
 '''
 This function takes the file name of the song and the portions to be censored as a list and then removes the vocals from the required bits
@@ -14,7 +14,7 @@ snips: Dictionary of sections to be removed
 Output: censored file
 
 '''
-def censor(file_name,snips=[{"start":20,"end":25},{"start":30,"end":35}]):
+def censor(file_name,snips=[{"start":20,"end":25,"word":"hello"},{"start":30,"end":35,"word":"bye"}]):
 
 	name = str(time.time()) + ".mp3"
 
@@ -33,6 +33,8 @@ def censor(file_name,snips=[{"start":20,"end":25},{"start":30,"end":35}]):
 	
 		# Merge two L and R_inv files, this cancels out the centers
 		sound_CentersOut = sound_monoL.overlay(sound_monoR_inv)
+		tts = gTTS(text='Hello', lang='en',slow=True)
+		sound_CentersOut.overlay(tts)
 		sound_stereo = sound_stereo[:start]+sound_CentersOut+sound_stereo[end:]
 
 
