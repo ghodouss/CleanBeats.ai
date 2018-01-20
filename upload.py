@@ -34,13 +34,42 @@ def upload_file():
             return redirect(url_for('uploaded_file',
                                     filename=filename))
     return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload New File</h1>
-    <form method=post enctype=multipart/form-data>
-      <p><input type=file name=file>
-         <input type=submit value=Upload>
-    </form>
+    <!DOCTYPE html>
+<html>
+	<head>
+        <title>Clean Beats</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    		<link rel="stylesheet" href="style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    </head>
+	<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="https://github.com/ghodouss/CleanBeats.ai" target="_blank">CleanBeats.ai</a>
+        </div>
+
+      </div>
+    </nav>
+    <div class="bodyContainer">
+      <header>
+        <h1 id="headerTitle">CLEAN BEATS</h1>
+      </header>
+      <div>
+        Make non-explicit versions of your songs to play at your holiday party!
+      </div>
+      <br />
+      <div id="formContainer">
+      <form action="/uploadsong" method="post" enctype=multipart/form-data>
+        <input name="songFile" type="file">
+        <br />
+        <input type="submit" value="upload">
+      </form>
+      </div>
+    </div>
+	</body>
+</html>
     '''
 
 
