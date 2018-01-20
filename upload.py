@@ -87,7 +87,7 @@ def return_files():
     except Exception as e:
         return str(e)
 
-
+#download function
 @app.route('/uploads/<path:filename>', methods=['GET', 'POST'])
 def download(filename):
     if request.method == "GET":
