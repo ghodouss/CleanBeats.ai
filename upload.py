@@ -1,8 +1,9 @@
 import os
 from flask import *
+from audio_cleaner import clean_audio
 
 #UPLOAD_FOLDER is where we will store the uploaded files
-UPLOAD_FOLDER = '/Users/yuyang/Desktop/temp'
+UPLOAD_FOLDER = 'explitive_files'
 #allowed format
 ALLOWED_EXTENSIONS = set(['mp3','wav'])
 
@@ -13,6 +14,7 @@ app.config['SECRET_KEY']="UPLOAD"
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
@@ -30,9 +32,15 @@ def upload_file():
         if file and allowed_file(file.filename):
             # filename = secure_filename(file.filename)#use secure_filename function for safety
             filename=file.filename
+
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+            new_audio_name = clean_audio(app.config['UPLOAD_FOLDER']+"/"+filename, "em_lyrics.txt")
+
+            
             return redirect(url_for('uploaded_file',
-                                    filename=filename))
+                                    filename=new_audio_name))
+
     return '''
     <!doctype html>
     <title>Upload new File</title>
@@ -46,9 +54,9 @@ def upload_file():
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'],
+    return send_from_directory("clean_files/",
                                filename)
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

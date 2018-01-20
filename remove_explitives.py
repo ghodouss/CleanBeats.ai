@@ -21,6 +21,14 @@ def segs_to_gentle(segments):
 
     return gentle_output
 
+def compress_transcript(transcript):
+    transcript.split(" ")
+    for count, word in enumerate(transcript):
+        if len(word)<4:
+            transcript.pop(count)
+    " ".join(transcript)
+    return transcript
+    
 
 def get_all_explitive_times(audio_file_path, text_file_path):
 
@@ -42,7 +50,7 @@ def get_all_explitive_times(audio_file_path, text_file_path):
     explitives = set()
     explitives.add("fuck")
     explitives.add("shit")
-    explitives.add("I'm")
+    explitives.add("damn")
 
     #store explitive time dicts
     explitive_times = []

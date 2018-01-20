@@ -1,6 +1,7 @@
 from pydub import AudioSegment
 from pydub.playback import play
 import time
+import os
 
 # read in audio file and get the two mono tracks
 
@@ -9,6 +10,8 @@ def censor(file_name,snips=[{"start":20,"end":25},{"start":30,"end":35}]):
 	name = str(time.time()) + ".mp3"
 
 	sound_stereo = AudioSegment.from_file(file_name, format="mp3")
+	os.remove(file_name)
+
 	words=snips
 	for i in words:
 		start = int(max(i["start"]-.1, 0)*1000)
@@ -25,7 +28,7 @@ def censor(file_name,snips=[{"start":20,"end":25},{"start":30,"end":35}]):
 
 
 	# Export merged audio file
-	fh = sound_stereo.export(name, format="wav")
+	fh = sound_stereo.export("clean_files/"+name, format="wav")
 
 	return name
 
