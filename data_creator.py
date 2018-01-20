@@ -47,7 +47,7 @@ def create_gan_data(file_name,snips=[{"start":20,"end":25,"word":"hello"},{"star
             sil=AudioSegment.silent(duration=int((len(sound_CentersOut)-len(repl))/2))
             repl=sil+repl+sil
             sound_stereo=sound_stereo.overlay(repl,gain_during_overlay=12,position=start)
-        clip=sound_stereo[((start+end)/2)-1500:((start+end)/2)-1500]
+        clip=sound_stereo[((start+end)/2)-1500:((start+end)/2)+1500]
         clip.export("temp.mp3",format="mp3")
         
         ######################
