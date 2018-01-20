@@ -21,13 +21,19 @@ def segs_to_gentle(segments):
 
     return gentle_output
 
-def compress_transcript(transcript):
-    transcript.split(" ")
-    for count, word in enumerate(transcript):
-        if len(word)<4:
-            transcript.pop(count)
-    " ".join(transcript)
-    return transcript
+
+def get_explitives(gentle_output):
+    explitives = ["shit", "fuck", "damn"]
+    explitive_times = []
+
+    for word in gentle_output:
+        for explitive in explitives:
+            if explitive in word.word and word.success():
+                explitive_time = {"word":word.word, "start":word.start, "end":word.end}
+                explitive_times.append(explitive_time)
+    print(explitive_times)
+
+    return explitive_times
     
 
 def get_all_explitive_times(audio_file_path, text_file_path):
@@ -45,25 +51,13 @@ def get_all_explitive_times(audio_file_path, text_file_path):
     --------------------
     List of timestamp dicts
     """
-
-    #build set of explitives to check
-    explitives = set()
-    explitives.add("fuck")
-    explitives.add("shit")
-    explitives.add("damn")
-
-    #store explitive time dicts
-    explitive_times = []
     
     # run forced alignment on file
     segments = align(audio_file_path, text_file_path)
     gentle_output = segs_to_gentle(segments)
 
     # get list of explitive times
-    for word in gentle_output:
-        if word.word in explitives and word.success():
-            explitive_time = {"word":word.word, "start":word.start, "end":word.end}
-            explitive_times.append(explitive_time)
+    explitive_times = get_explitives(gentle_output)
     
     #return explitive times
     return explitive_times
