@@ -17,13 +17,19 @@ def load_Discr_Y(length, gan_output=False):
     return y
 
 
+
+
 def load_correct_disc_X(audio_file_path, time_stamps):
     with audioread.audio_open(audio_file_path) as f:
-        correct_cuts = []
+        duration = int(f.duration)
+
+    correct_cuts = []
 
     for word in time_stamps:
-
-        new_cut = librosa.load(audio_file_path, offset=start, duration=3)[0]
-        correct_cuts.append(new_cut)
+        if word.success() and word.start>1.3 and word.end<duration-2:
+            new_cut = librosa.load(audio_file_path, offset=word.start-1.2, duration=3)[0]
+            correct_cuts.append(new_cut)
 
     return correct_cuts
+
+
