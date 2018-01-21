@@ -5,6 +5,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <style>
+        body {
+            background-image: url("../resources/bg.png");
+            background-size: 100vw 100vh;
+            background-repeat: no-repeat;
+        }
         .bodyContainer {
           text-align: center;
         }
@@ -12,9 +17,16 @@
           display: inline-block;
           text-align: center;
         }
+        .text {
+            color: white;
+        }
         #headerTitle {
             font-size: 100px;
             font-family: 'Raleway', sans-serif;
+            color: white;
+        }
+        #download {
+            display: none;
         }
 
     </style>
@@ -30,9 +42,9 @@
 </nav>
 <div class="bodyContainer">
     <header>
-        <h1 id="headerTitle">CLEAN BEATS</h1>
+        <img src="../resources/logo.png">
     </header>
-    <div>
+    <div class="text">
         Make non-explicit versions of your songs to play at your holiday party!
     </div>
     <br/>
@@ -40,15 +52,13 @@
         <form method="post" enctype="multipart/form-data">
             <input name="file" type="file">
             <br/>
-            <input type="submit" value="upload">
+            <input id="uploadbtn" type="submit" value="Upload" onclick="alert('hi');$('#download').css('display', 'block');">
         </form>
     </div>
-    <pre name="code" class="html">
     <!--the filename can be changed-->
-    <input id="download" class="btn btn-default" type="button" value='Download' target="_blank" hidden="true"
+    <input id="download" class="btn btn-default" type="button" value='Download' target="_blank" 
            onclick="location.href='{{ url_for('download', filename='Amethystium-Ethereal.mp3')}}'">
 
-    </pre>
 </div>
 </body>
 </html>
