@@ -39,7 +39,6 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
             new_audio_name = clean_audio(app.config['UPLOAD_FOLDER']+"/"+filename, "em_lyrics.txt")
-
             
             return redirect(url_for('uploaded_file',
                                     filename=new_audio_name))
@@ -51,6 +50,7 @@ def upload_file():
 def uploaded_file(filename):
     return send_from_directory("clean_files/",
                                filename)
+
 # download from the Internet
 @app.route('/uploads/test_download_Net/<filename>')
 def download_file(url_addr):
@@ -75,8 +75,8 @@ def return_files():
     try:
         # example
         # return send_file('/var/www/PythonProgramming/PythonProgramming/static/ohhey.pdf', attachment_filename='ohhey.pdf')
-        return send_file('/Users/yuyang/Desktop/temp/Alan Walker-Fade.mp3',
-                         attachment_filename='Alan Walker-Fade.mp3')
+        return send_file('temp.wav',
+                         attachment_filename='Downloaded_file.mp3')
     except Exception as e:
         return str(e)
 
@@ -86,7 +86,6 @@ def download(filename):
     if request.method == "GET":
         if os.path.isfile(os.path.join('upload', filename)):
             return send_from_directory('upload', filename, as_attachment=True)
-        abort(404)
 
 if __name__ == "__main__":
     app.run()

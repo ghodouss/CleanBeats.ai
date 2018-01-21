@@ -16,7 +16,9 @@ Output: censored file
 '''
 def censor(file_name,snips=[{"start":20,"end":25},{"start":30,"end":35}]):
 
-	name = str(time.time()) + ".mp3"
+	#name = str(time.time()) + ".mp3"
+
+	name = "clean_file.wav"
 
 	sound_stereo = AudioSegment.from_file(file_name, format="mp3")
 	#os.remove(file_name)
