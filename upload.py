@@ -1,8 +1,9 @@
 import os
 from flask import Flask, request, redirect, url_for, flash,send_file, render_template, send_from_directory
 from werkzeug.utils import secure_filename
+
+from audio_cleaner import clean_audio
 import requests
-#from audio_cleaner import clean_audio
 
 #UPLOAD_FOLDER is where we will store the uploaded files
 UPLOAD_FOLDER = 'explitive_files'
@@ -69,15 +70,23 @@ def file_downloads():
     except Exception as e:
         return str(e)
 
-@app.route('/uploads/return-files/')#the original web use @app.route('/return-files/')
-def return_files_tut(filename,address):
+@app.route('/uploads/')#the original web use @app.route('/return-files/')
+def return_files():
     try:
         # example
         # return send_file('/var/www/PythonProgramming/PythonProgramming/static/ohhey.pdf', attachment_filename='ohhey.pdf')
-        return send_file(address, attachment_filename=filename)
+        return send_file('/Users/yuyang/Desktop/temp/Alan Walker-Fade.mp3',
+                         attachment_filename='Alan Walker-Fade.mp3')
     except Exception as e:
         return str(e)
 
+#download function
+@app.route('/uploads/<path:filename>', methods=['GET', 'POST'])
+def download(filename):
+    if request.method == "GET":
+        if os.path.isfile(os.path.join('upload', filename)):
+            return send_from_directory('upload', filename, as_attachment=True)
+        abort(404)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
