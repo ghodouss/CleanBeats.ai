@@ -1,2 +1,2 @@
 # CleanBeats.ai
-Removes explitives from songs
+Removes expletives from songs
