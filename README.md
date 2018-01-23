@@ -53,7 +53,8 @@ post production editing of long audio files
 2. Pydub - `pip install pydub`
 3. Librosa - `pip install librosa`
 4. Flask - `pip install flask`
-5. Canetis - Instructions available at https://github.com/nsheth12/canetis
+5. gTTS - `pip install gTTS`
+6. Canetis - Instructions available at https://github.com/nsheth12/canetis
 
 
 
