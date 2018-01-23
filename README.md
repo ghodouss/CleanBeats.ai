@@ -3,13 +3,6 @@ Clean Beats is a github repo that, given an audio file and a transcript
 will automatically dub out all the explitives in the given audio file
 and return said file for download.
 
-<p align="center">
-  <img src="pictures/homepage.jpg" width="350"/>
-  <br>
-  Our Homepage
-</p>
-
-## Second Place at SBHacks 2018 :)
 
 However, we finished that functionality the first night of the hackathon. Then,
 we decided, what if we were able to, instead of dubbing out the word, replace the
@@ -29,7 +22,7 @@ our "Clean Beats" website functionality, we build up our dataset for our
 style transfer/generator network. 
 
 <p align="center">
-  <img src="pictures/pipeline.jpg" width="350"/>
+  <img src="pictures/pipeline.jpg" width="500"/>
   <br>
   Our Data Pipeline
 </p>
@@ -47,6 +40,11 @@ Applications of our generator could include live stream audio replacement or
 post production editing of long audio files
 
 
+<p align="center">
+  <img src="pictures/homepage.jpg" width="500"/>
+  <br>
+  Our Homepage
+</p>
 
 
 **Dependencies**
@@ -60,5 +58,5 @@ post production editing of long audio files
 
 
 We had a great time building this! Shout out to the staff at SBHacks for hosting
-a fantastic hackathon environment, a beautiful campus and fantastic food!
+a fantastic hackathon on a beautiful campus with delicious food!
 
