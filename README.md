@@ -3,13 +3,10 @@ Clean Beats is a github repo that, given an audio file and a transcript
 will automatically dub out all the explitives in the given audio file
 and return said file for download.
 
-
-However, we finished that functionality the first night of the hackathon. Then,
+We finished that functionality the first night of the hackathon. Then,
 we decided, what if we were able to, instead of dubbing out the word, replace the
 word with any other word: essentially creating a "find and replace" program for
 audio files. 
-
-
 
 However, we were primarily using songs as our test files: imagine
 jamming Siri's voice into the middle of an Eminem Song. It wouldn't work.
