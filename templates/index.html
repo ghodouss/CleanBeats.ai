@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <style>
         body {
-            background-image: url("../resources/bg.png");
+            background-image: url("../static/bg.png");
             background-size: 100vw 100vh;
             background-repeat: no-repeat;
         }
@@ -26,7 +26,6 @@
             color: white;
         }
         #download {
-            display: none;
         }
 
     </style>
@@ -42,7 +41,7 @@
 </nav>
 <div class="bodyContainer">
     <header>
-        <img src="../resources/logo.png">
+        <img src="{{ '../static/logo.png' }}">
     </header>
     <div class="text">
         Make non-explicit versions of your songs to play at your holiday party!
@@ -50,14 +49,15 @@
     <br/>
     <div id="formContainer">
         <form method="post" enctype="multipart/form-data">
-            <input name="file" type="file">
+            <input class="btn btn-info" name="file" type="file">
             <br/>
-            <input id="uploadbtn" type="submit" value="Upload" onclick="alert('hi');$('#download').css('display', 'block');">
+            <input class="btn btn-primary" id="uploadbtn" type="submit" value="Upload" onclick="$('#uploadbtn').attr('value', 'Downloading :)')">
         </form>
     </div>
     <!--the filename can be changed-->
-    <input id="download" class="btn btn-default" type="button" value='Download' target="_blank" 
-           onclick="location.href='{{ url_for('download', filename='Amethystium-Ethereal.mp3')}}'">
+    <input id="download" class="btn btn-primary" type="button" value='Download' target="_blank" 
+           onclick="location.href='{{ url_for('download', filename='clean_file.wav')}}';"
+           style="display: {{ display }}">
 
 </div>
 </body>

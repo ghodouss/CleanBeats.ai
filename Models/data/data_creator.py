@@ -17,13 +17,15 @@ snips: Dictionary of sections to be removed
 Output: censored file
 
 '''
-def create_gan_data(audio_file_name, transcript_file_name):
+def create_gan_data(audio_file_name, transcript_file_name, file=True):
 
-    with open(transcript_file_name, "r") as f:
-        content = f.read()
-        words = json.loads(content)
+    if file:
+        with open(transcript_file_name, "r") as f:
+            content = f.read()
+            words = json.loads(content)
+    else:
+        words = transcript_file_name
     
-
     name = str(time.time()) + ".mp3"
 
     sound_stereo = AudioSegment.from_file(audio_file_name, format="mp3")
@@ -47,7 +49,7 @@ def create_gan_data(audio_file_name, transcript_file_name):
         # Merge two L and R_inv files, this cancels out the centers
         sound_CentersOut = sound_monoL.overlay(sound_monoR_inv)
         sound_stereo = sound_real[:start]+sound_CentersOut+sound_real[end:]
-        tts = gTTS(text=i["word"], lang='en')
+        tts = gTTS(text="banana", lang='en')
         tts.save("temp.mp3")
         repl=AudioSegment.from_file("temp.mp3", format="mp3")
         if len(repl)>len(sound_CentersOut):
@@ -60,14 +62,14 @@ def create_gan_data(audio_file_name, transcript_file_name):
             repl=sil+repl+sil
 
         sound_stereo=sound_stereo.overlay(repl,gain_during_overlay=3,position=((start))) #+end)-len(repl))/2)
-        if (((start+end)/2)>1500 and ((start+end)/2)<(len(sound_stereo)-1500)):
-            clip=sound_stereo[((start+end)/2)-1500:((start+end)/2)+1500]
+        if (((start+end)/2)>600 and ((start+end)/2)<(len(sound_stereo)-600)):
+            clip=sound_stereo[((start+end)/2)-600:((start+end)/2)+600]
             clip.export("temp.wav",format="wav")
-            clipr=sound_real[((start+end)/2)-1500:((start+end)/2)+1500]
+            clipr=sound_real[((start+end)/2)-600:((start+end)/2)+600]
             clipr.export("realtemp.wav",format="wav")
 
-            gan_data.append(librosa.load("temp.wav")[0])
-            disc_truth.append(librosa.load("realtemp.wav")[0])
+            gan_data.append(librosa.load("temp.wav")[0][0:26460])
+            disc_truth.append(librosa.load("realtemp.wav")[0][0:26460])
 
     #os.remove("temp.wav")
     #os.remove("realtemp.wav")
@@ -80,9 +82,9 @@ def create_gan_data(audio_file_name, transcript_file_name):
 
 if __name__ == "__main__":
  
-    gan, disc = create_gan_data("audio3.mp3", "audio3.txt")
+    gan, disc = create_gan_data("audio1.mp3", "audio1.txt")
 
-    np.save("audio4_gan_X.npy", gan)
-    np.save("audio4_disc_X.npy", disc)
+    np.save("audio1_gan_X.npy", gan)
+    np.save("audio1_disc_X.npy", disc)
 
 

@@ -23,7 +23,7 @@ def segs_to_gentle(segments):
 
 
 def get_explitives(gentle_output):
-    explitives = ["shit", "fuck", "damn"]
+    explitives = ["shit", "fuck", "damn", "dick"]
     explitive_times = []
 
     for word in gentle_output:
